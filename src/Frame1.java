@@ -35,7 +35,7 @@ public class Frame1 extends JFrame {
 		});
 	}
 	
-		double number, answer;
+		double number, answer, preResult;
 		int formulaIndex;
 		private JTextField Screen;
 		private JTextField FormulaBar;
@@ -43,29 +43,68 @@ public class Frame1 extends JFrame {
 		// Method for all arithmetic operations 
 		public void arithmetic_operation() {
 			switch (formulaIndex)
-			{
+			{	
 				// Addition
 				case 1:
+					preResult = Double.parseDouble(Screen.getText());
 					answer = number + Double.parseDouble(Screen.getText());
 					Screen.setText(Double.toString(answer));
+					FormulaBar.setText(number + " + " + preResult);
 					break;
 				
 				// Subtraction
 				case 2:
+					preResult = Double.parseDouble(Screen.getText());
 					answer = number - Double.parseDouble(Screen.getText());
 					Screen.setText(Double.toString(answer));
+					FormulaBar.setText(number + " - " + preResult);
 					break;
 					
 				// Multiplication
 				case 3:
+					preResult = Double.parseDouble(Screen.getText());
 					answer = number * Double.parseDouble(Screen.getText());
 					Screen.setText(Double.toString(answer));
+					FormulaBar.setText(number + " x " + preResult);
 					break;
 					
 				// Division
 				case 4:
+					preResult = Double.parseDouble(Screen.getText());
 					answer = number / Double.parseDouble(Screen.getText());
 					Screen.setText(Double.toString(answer));
+					FormulaBar.setText(number + " / " + preResult);
+					break;
+				
+				// Sine
+				case 5:
+					number = Double.parseDouble(Screen.getText());
+					answer = Math.sin(Math.toRadians(Double.parseDouble(Screen.getText())));
+					Screen.setText(Double.toString(answer));
+					FormulaBar.setText("sin " + number);
+					break;
+				
+				// Cosine
+				case 6:
+					number = Double.parseDouble(Screen.getText());
+					answer = Math.cos(Math.toRadians(Double.parseDouble(Screen.getText())));
+					Screen.setText(Double.toString(answer));
+					FormulaBar.setText("cos " + number);
+					break;
+				
+				// Tangent
+				case 7:
+					number = Double.parseDouble(Screen.getText());
+					answer = Math.tan(Math.toRadians(Double.parseDouble(Screen.getText())));
+					Screen.setText(Double.toString(answer));
+					FormulaBar.setText("tan " + number);
+					break;
+				
+				// Default decision if none of the above cases are met
+				default: 
+					String valueAsIs = Screen.getText();
+					Screen.setText(valueAsIs);
+					FormulaBar.setText(valueAsIs + " = ");
 					break;
 			}
 		}
@@ -290,6 +329,7 @@ public class Frame1 extends JFrame {
 		Equals.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				arithmetic_operation();
+				// FormulaBar.setText("");
 			}
 		});
 		Equals.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
@@ -311,7 +351,14 @@ public class Frame1 extends JFrame {
 		Subtraction.setBounds(372, 295, 80, 55);
 		Body.add(Subtraction);
 		
+		// Code for sin button
 		Button Sin = new Button("sin");
+		Sin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formulaIndex = 5;
+				FormulaBar.setText("sin ");
+			}
+		});
 		Sin.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
 		Sin.setBackground(Color.ORANGE);
 		Sin.setBounds(372, 10, 80, 55);
@@ -347,12 +394,24 @@ public class Frame1 extends JFrame {
 		Body.add(Root);
 		
 		Button Cos = new Button("cos");
+		Cos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formulaIndex = 6;
+				FormulaBar.setText("cos ");
+			}
+		});
 		Cos.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
 		Cos.setBackground(Color.ORANGE);
 		Cos.setBounds(131, 81, 80, 55);
 		Body.add(Cos);
 		
 		Button Tan = new Button("tan");
+		Tan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formulaIndex = 7;
+				FormulaBar.setText("tan ");
+			}
+		});
 		Tan.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
 		Tan.setBackground(Color.ORANGE);
 		Tan.setBounds(253, 81, 80, 55);
