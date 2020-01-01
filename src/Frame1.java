@@ -15,6 +15,7 @@ import java.awt.Button;
 import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.TextField;
+import java.awt.Toolkit;
 import java.awt.Label;
 
 public class Frame1 extends JFrame {
@@ -100,6 +101,14 @@ public class Frame1 extends JFrame {
 					FormulaBar.setText("tan " + number);
 					break;
 				
+				// Square root
+				case 8:
+					number = Double.parseDouble(Screen.getText());
+					answer = Math.sqrt(number);
+					Screen.setText(Double.toString(answer));
+					FormulaBar.setText("\u221A" + number);
+					break;
+				
 				// Default decision if none of the above cases are met
 				default: 
 					String valueAsIs = Screen.getText();
@@ -110,17 +119,19 @@ public class Frame1 extends JFrame {
 		}
 		
 	public Frame1() {
-
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Frame1.class.getResource("/img/Logo.png")));
+		setResizable(false);
+	
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 482, 663);
+		setBounds(100, 100, 497, 653);
 		Calculator = new JPanel();
 		Calculator.setBackground(Color.LIGHT_GRAY);
 		setContentPane(Calculator);
 		Calculator.setLayout(null);
 		
 		JPanel Results = new JPanel();
-		Results.setBounds(10, 47, 462, 125);
+		Results.setBounds(10, 10, 462, 125);
 		Results.setBackground(Color.DARK_GRAY);
 		Calculator.add(Results);
 		Results.setLayout(null);
@@ -142,11 +153,13 @@ public class Frame1 extends JFrame {
 		FormulaBar.setColumns(10);
 		
 		JPanel Body = new JPanel();
-		Body.setBounds(10, 182, 462, 471);
+		Body.setBounds(10, 145, 462, 453);
 		Body.setBackground(Color.DARK_GRAY);
 		Calculator.add(Body);
 		Body.setLayout(null);
-		setUndecorated(true);
+		setUndecorated(false);
+		
+		
 		
 		// Code for clear button
 		Button Clear = new Button("Clear");
@@ -388,6 +401,12 @@ public class Frame1 extends JFrame {
 		Body.add(Backspace);
 		
 		Button Root = new Button("\u221A");
+		Root.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				formulaIndex = 8;
+				FormulaBar.setText("\u221A");
+			}
+		});
 		Root.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
 		Root.setBackground(Color.ORANGE);
 		Root.setBounds(10, 81, 80, 55);
@@ -416,45 +435,5 @@ public class Frame1 extends JFrame {
 		Tan.setBackground(Color.ORANGE);
 		Tan.setBounds(253, 81, 80, 55);
 		Body.add(Tan);
-		
-		Button exitApp = new Button("X");
-		exitApp.setBounds(441, 10, 31, 31);
-		exitApp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		exitApp.setForeground(Color.BLACK);
-		exitApp.setBackground(Color.ORANGE);
-		exitApp.setFont(new Font("Dialog", Font.PLAIN, 14));
-		Calculator.add(exitApp);
-		
-		Button Maximize = new Button("[ ]");
-		Maximize.setBounds(404, 10, 31, 31);
-		Maximize.setEnabled(false);
-		Maximize.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		Maximize.setForeground(Color.BLACK);
-		Maximize.setFont(new Font("Dialog", Font.PLAIN, 14));
-		Maximize.setBackground(Color.ORANGE);
-		Calculator.add(Maximize);
-		
-		// Code for Minimize button
-		Button Minimize = new Button("_");
-		Minimize.setBounds(367, 10, 31, 31);
-		Minimize.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Frame1 frame = new Frame1();
-				frame.setVisible(true);
-				frame.setExtendedState(JFrame.ICONIFIED);
-			}
-		});
-		Minimize.setForeground(Color.BLACK);
-		Minimize.setFont(new Font("Dialog", Font.PLAIN, 14));
-		Minimize.setBackground(Color.ORANGE);
-		Calculator.add(Minimize);
 	}
 }
