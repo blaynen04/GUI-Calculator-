@@ -159,12 +159,11 @@ public class Frame1 extends JFrame {
 		Body.setLayout(null);
 		setUndecorated(false);
 		
-		
-		
 		// Code for clear button
 		Button Clear = new Button("Clear");
 		Clear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				answer = Double.parseDouble(Screen.getText());
 				Screen.setText("");
 				FormulaBar.setText("");
 			}
@@ -347,16 +346,24 @@ public class Frame1 extends JFrame {
 		});
 		Equals.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
 		Equals.setBackground(Color.ORANGE);
-		Equals.setBounds(253, 366, 199, 68);
+		Equals.setBounds(372, 366, 80, 55);
 		Body.add(Equals);
 		
 		Button Subtraction = new Button("-");
 		Subtraction.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String display = Screen.getText();
+				
+				if (Screen.getText() == "" || Screen.getText() == " " || display == null || display.isEmpty()) {
+					Screen.setText("-");
+				}
+				
 				number = Double.parseDouble(Screen.getText());
 				formulaIndex = 2;
 				Screen.setText("");
 				FormulaBar.setText(number + " - ");
+				
 			}
 		});
 		Subtraction.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
@@ -435,5 +442,16 @@ public class Frame1 extends JFrame {
 		Tan.setBackground(Color.ORANGE);
 		Tan.setBounds(253, 81, 80, 55);
 		Body.add(Tan);
+		
+		Button Answer = new Button("Ans");
+		Answer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Screen.setText(Double.toString(answer));
+			}
+		});
+		Answer.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 18));
+		Answer.setBackground(Color.ORANGE);
+		Answer.setBounds(253, 366, 80, 55);
+		Body.add(Answer);
 	}
 }
